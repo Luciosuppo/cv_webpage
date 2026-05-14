@@ -12,14 +12,28 @@
     html { scroll-behavior: smooth; }
 
     :root {
-      --bg:        #0f0e15;
-      --surface:   #16141f;
-      --border:    #2a2638;
+      --bg:        #17151f;
+      --surface:   #1e1b2a;
+      --border:    #35324a;
       --violet:    #7c6af7;
       --violet-dim:#3d3572;
       --text:      #e8e6f0;
       --muted:     #6e6b82;
-      --faint:     #1e1b2e;
+      --faint:     #252238;
+      /* Narrow phones/tablets: same as before; wider screens use more horizontal space */
+      --layout-max: 780px;
+    }
+
+    @media (min-width: 900px) {
+      :root { --layout-max: min(1024px, calc(100vw - 4rem)); }
+    }
+
+    @media (min-width: 1200px) {
+      :root { --layout-max: min(1180px, calc(100vw - 6rem)); }
+    }
+
+    @media (min-width: 1600px) {
+      :root { --layout-max: min(1320px, calc(100vw - 8rem)); }
     }
 
     body {
@@ -35,16 +49,22 @@
 
     /* ─── HERO ─────────────────────────────────── */
     .hero {
-      max-width: 780px;
+      max-width: var(--layout-max);
       margin: 0 auto;
       padding: 96px 48px 80px;
       display: grid;
       grid-template-columns: 1fr auto;
-      gap: 0 48px;
+      column-gap: 48px;
+      row-gap: 0;
       align-items: start;
     }
 
-    .hero-text { }
+    /* Name + eyebrow only; photo sits beside this row, not beside contacts */
+    .hero-lead-text {
+      grid-column: 1;
+      grid-row: 1;
+      min-width: 0;
+    }
 
     .hero-eyebrow {
       font-size: 11px;
@@ -73,7 +93,7 @@
       line-height: 1.0;
       letter-spacing: -0.02em;
       color: #fff;
-      margin-bottom: 24px;
+      margin-bottom: 0;
     }
 
     .hero-name span {
@@ -83,11 +103,14 @@
     }
 
     .hero-tagline {
+      grid-column: 1;
+      grid-row: 2;
       font-size: 17px;
       font-weight: 300;
       color: var(--muted);
       line-height: 1.65;
       max-width: 420px;
+      margin-top: 24px;
       margin-bottom: 40px;
     }
 
@@ -96,8 +119,11 @@
       font-weight: 400;
     }
 
-    /* Photo */
+    /* Photo: desktop spans full height of text stack, aligned with headline */
     .hero-photo {
+      grid-column: 2;
+      grid-row: 1 / -1;
+      align-self: start;
       width: 140px;
       height: 140px;
       border-radius: 50%;
@@ -127,6 +153,8 @@
 
     /* Contact pills */
     .hero-contacts {
+      grid-column: 1;
+      grid-row: 3;
       display: flex;
       gap: 10px;
       flex-wrap: wrap;
@@ -154,7 +182,7 @@
 
     /* ─── DIVIDER ────────────────────────────────── */
     .divider {
-      max-width: 780px;
+      max-width: var(--layout-max);
       margin: 0 auto;
       padding: 0 48px;
     }
@@ -166,7 +194,7 @@
 
     /* ─── SECTION ───────────────────────────────── */
     .section {
-      max-width: 780px;
+      max-width: var(--layout-max);
       margin: 0 auto;
       padding: 64px 48px;
       border-bottom: 1px solid var(--border);
@@ -175,9 +203,9 @@
     .section:last-of-type { border-bottom: none; }
 
     .sec-label {
-      font-size: 10px;
+      font-size: 20px;
       font-weight: 500;
-      letter-spacing: 0.24em;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--violet);
       margin-bottom: 36px;
@@ -297,7 +325,22 @@
 
     .cert-item:first-child { border-top: 1px solid var(--border); }
 
-    .cert-name { font-size: 15px; font-weight: 400; color: var(--text); }
+    .cert-name {
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--text);
+      text-decoration: none;
+      transition: color 0.2s;
+      min-width: 0;
+    }
+
+    .cert-name:hover { color: var(--violet); }
+
+    .cert-name:focus-visible {
+      outline: 2px solid var(--violet);
+      outline-offset: 3px;
+      border-radius: 2px;
+    }
 
     .cert-badge {
       flex-shrink: 0;
@@ -318,6 +361,21 @@
       max-width: 140px;
       object-fit: contain;
       display: block;
+    }
+
+    .cert-badge a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 0;
+      color: inherit;
+    }
+
+    .cert-badge:hover { border-color: var(--violet); }
+
+    .cert-badge:has(a:focus-visible) {
+      outline: 2px solid var(--violet);
+      outline-offset: 2px;
     }
 
     /* ─── EDUCATION ──────────────────────────────── */
@@ -351,6 +409,19 @@
       border: 1px solid var(--border);
       border-radius: 10px;
       background: var(--surface);
+      transition: border-color 0.2s;
+    }
+
+    a.lang-card {
+      display: block;
+      cursor: pointer;
+    }
+
+    a.lang-card:hover { border-color: var(--violet); }
+
+    a.lang-card:focus-visible {
+      outline: 2px solid var(--violet);
+      outline-offset: 2px;
     }
 
     .lang-name {
@@ -364,7 +435,7 @@
 
     /* ─── CONTACT ────────────────────────────────── */
     .contact-section {
-      max-width: 780px;
+      max-width: var(--layout-max);
       margin: 0 auto;
       padding: 72px 48px 96px;
     }
@@ -422,7 +493,7 @@
     /* ─── FOOTER ─────────────────────────────────── */
     footer {
       border-top: 1px solid var(--border);
-      max-width: 780px;
+      max-width: var(--layout-max);
       margin: 0 auto;
       padding: 28px 48px;
       display: flex;
@@ -445,9 +516,35 @@
     }
 
     /* ─── RESPONSIVE ─────────────────────────────── */
+    /* Photo only beside the name row; tagline + contacts use full width */
+    @media (max-width: 900px) {
+      .hero {
+        column-gap: 20px;
+        row-gap: 8px;
+      }
+
+      .hero-photo {
+        grid-row: 1;
+        margin-top: 0;
+        align-self: center;
+      }
+
+      .hero-tagline {
+        grid-column: 1 / -1;
+        grid-row: 2;
+        max-width: none;
+        margin-top: 20px;
+      }
+
+      .hero-contacts {
+        grid-column: 1 / -1;
+        grid-row: 3;
+      }
+    }
+
     @media (max-width: 600px) {
-      .hero { grid-template-columns: 1fr; padding: 64px 28px 56px; gap: 32px; }
-      .hero-photo { margin-top: 0; width: 100px; height: 100px; }
+      .hero { padding: 64px 28px 56px; }
+      .hero-photo { width: 100px; height: 100px; }
       .section, .contact-section, footer { padding-left: 28px; padding-right: 28px; }
       .skill-row { flex-direction: column; gap: 10px; }
       .skill-cat { min-width: unset; }
@@ -458,29 +555,29 @@
 
   <!-- HERO -->
   <div class="hero">
-    <div class="hero-text">
+    <div class="hero-lead-text">
       <div class="hero-eyebrow">Data Engineer</div>
       <h1 class="hero-name">
         Lucio<br>
         <span>Hernán</span>
         Suppo
       </h1>
-      <p class="hero-tagline">
-        I <strong>turn data into decisions</strong> — designing and operating cloud platforms that move from raw pipeline to production-grade insight.
-      </p>
-      <div class="hero-contacts">
-        <a class="pill" href="mailto:Lucio.suppo@gmail.com">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
-          Lucio.suppo@gmail.com
-        </a>
-        <a class="pill" href="https://linkedin.com/in/Luciosuppo" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-          LinkedIn
-        </a>
-      </div>
     </div>
     <div class="hero-photo">
       <img src="images/lucio-suppo.jpg" alt="Lucio Hernán Suppo" />
+    </div>
+    <p class="hero-tagline">
+      I <strong>turn data into decisions</strong> — designing and operating cloud platforms that move from raw pipeline to production-grade insight.
+    </p>
+    <div class="hero-contacts">
+      <a class="pill" href="mailto:Lucio.suppo@gmail.com">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+        Lucio.suppo@gmail.com
+      </a>
+      <a class="pill" href="https://linkedin.com/in/Luciosuppo" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        LinkedIn
+      </a>
     </div>
   </div>
 
@@ -519,21 +616,27 @@
   <div class="section">
     <div class="sec-label">Certifications</div>
     <div class="cert-item">
-      <span class="cert-name">AWS Certified Solutions Architect</span>
+      <a class="cert-name" href="https://www.credly.com/badges/ceb60013-7f9e-49a0-9eb5-3bdfc5d3bb0d/linked_in_profile" target="_blank" rel="noopener noreferrer">AWS Certified Solutions Architect</a>
       <span class="cert-badge">
-        <img src="images/cert-aws-solutions-architect.png" alt="AWS Certified Solutions Architect badge" />
+        <a href="https://www.credly.com/badges/ceb60013-7f9e-49a0-9eb5-3bdfc5d3bb0d/linked_in_profile" target="_blank" rel="noopener noreferrer" aria-label="Verify AWS Certified Solutions Architect on Credly">
+          <img src="images/cert-aws-solutions-architect.png" alt="" />
+        </a>
       </span>
     </div>
     <div class="cert-item">
-      <span class="cert-name">AWS Certified AI Practitioner</span>
+      <a class="cert-name" href="https://cp.certmetrics.com/amazon/en/public/verify/credential/7ab32d754e104eb6a1527bfb5a8777fe" target="_blank" rel="noopener noreferrer">AWS Certified AI Practitioner</a>
       <span class="cert-badge">
-        <img src="images/cert-aws-ai-practitioner.png" alt="AWS Certified AI Practitioner badge" />
+        <a href="https://cp.certmetrics.com/amazon/en/public/verify/credential/7ab32d754e104eb6a1527bfb5a8777fe" target="_blank" rel="noopener noreferrer" aria-label="Verify AWS Certified AI Practitioner on CertMetrics">
+          <img src="images/cert-aws-ai-practitioner.png" alt="" />
+        </a>
       </span>
     </div>
     <div class="cert-item">
-      <span class="cert-name">AWS Certified Data Engineer</span>
+      <a class="cert-name" href="https://cp.certmetrics.com/amazon/en/public/verify/credential/69bb61e0483f4d5aa348c61c9198f320" target="_blank" rel="noopener noreferrer">AWS Certified Data Engineer</a>
       <span class="cert-badge">
-        <img src="images/cert-aws-data-engineer.png" alt="AWS Certified Data Engineer badge" />
+        <a href="https://cp.certmetrics.com/amazon/en/public/verify/credential/69bb61e0483f4d5aa348c61c9198f320" target="_blank" rel="noopener noreferrer" aria-label="Verify AWS Certified Data Engineer on CertMetrics">
+          <img src="images/cert-aws-data-engineer.png" alt="" />
+        </a>
       </span>
     </div>
   </div>
@@ -607,10 +710,10 @@
         <div class="lang-name">Spanish</div>
         <div class="lang-level">Native</div>
       </div>
-      <div class="lang-card">
+      <a class="lang-card" href="https://cert.efset.org/AhH9Jt" target="_blank" rel="noopener noreferrer" aria-label="English — open EF SET certificate">
         <div class="lang-name">English</div>
         <div class="lang-level">C2 Proficient · EF SET</div>
-      </div>
+      </a>
     </div>
   </div>
 
