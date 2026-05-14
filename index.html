@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lucio Hernán Suppo — Data Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    :root {
+      --bg:        #0f0e15;
+      --surface:   #16141f;
+      --border:    #2a2638;
+      --violet:    #7c6af7;
+      --violet-dim:#3d3572;
+      --text:      #e8e6f0;
+      --muted:     #6e6b82;
+      --faint:     #1e1b2e;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ─── HERO ─────────────────────────────────── */
+    .hero {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 96px 48px 80px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 0 48px;
+      align-items: start;
+    }
+
+    .hero-text { }
+
+    .hero-eyebrow {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--violet);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      display: block;
+      width: 24px;
+      height: 1px;
+      background: var(--violet);
+    }
+
+    .hero-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(48px, 8vw, 80px);
+      font-weight: 400;
+      line-height: 1.0;
+      letter-spacing: -0.02em;
+      color: #fff;
+      margin-bottom: 24px;
+    }
+
+    .hero-name span {
+      display: block;
+      font-style: italic;
+      color: var(--violet);
+    }
+
+    .hero-tagline {
+      font-size: 17px;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.65;
+      max-width: 420px;
+      margin-bottom: 40px;
+    }
+
+    .hero-tagline strong {
+      color: var(--text);
+      font-weight: 400;
+    }
+
+    /* Photo */
+    .hero-photo {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid var(--border);
+      flex-shrink: 0;
+      margin-top: 48px;
+      position: relative;
+      background: var(--faint);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .hero-photo .initials {
+      font-family: 'DM Serif Display', serif;
+      font-size: 36px;
+      color: var(--violet-dim);
+    }
+
+    /* Contact pills */
+    .hero-contacts {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 18px;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--muted);
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .pill:hover {
+      border-color: var(--violet);
+      color: var(--text);
+    }
+
+    .pill svg { width: 13px; height: 13px; stroke: currentColor; flex-shrink: 0; }
+
+    /* ─── DIVIDER ────────────────────────────────── */
+    .divider {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 0 48px;
+    }
+
+    .divider hr {
+      border: none;
+      border-top: 1px solid var(--border);
+    }
+
+    /* ─── SECTION ───────────────────────────────── */
+    .section {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 64px 48px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section:last-of-type { border-bottom: none; }
+
+    .sec-label {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--violet);
+      margin-bottom: 36px;
+    }
+
+    /* ─── EXPERIENCE ────────────────────────────── */
+    .job { margin-bottom: 48px; }
+    .job:last-child { margin-bottom: 0; }
+
+    .job-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 4px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .job-company {
+      font-family: 'DM Serif Display', serif;
+      font-size: 24px;
+      font-weight: 400;
+      color: #fff;
+    }
+
+    .job-period {
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+    }
+
+    .job-role {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--violet);
+      margin-bottom: 18px;
+    }
+
+    .job-bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .job-bullets li {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.75;
+      padding-left: 22px;
+      position: relative;
+    }
+
+    .job-bullets li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 11px;
+      width: 10px;
+      height: 1px;
+      background: var(--violet-dim);
+    }
+
+    /* ─── SKILLS ─────────────────────────────────── */
+    .skill-rows { display: flex; flex-direction: column; gap: 20px; }
+
+    .skill-row {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .skill-row:last-child { border-bottom: none; padding-bottom: 0; }
+
+    .skill-cat {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      min-width: 130px;
+      padding-top: 5px;
+      flex-shrink: 0;
+    }
+
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+
+    .tag {
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--text);
+      background: var(--faint);
+      border: 1px solid var(--border);
+      padding: 5px 14px;
+      border-radius: 6px;
+      letter-spacing: 0.02em;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .tag:hover { border-color: var(--violet); color: var(--violet); }
+
+    /* ─── CERTIFICATIONS ─────────────────────────── */
+    .cert-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 0;
+      border-bottom: 1px solid var(--border);
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .cert-item:first-child { border-top: 1px solid var(--border); }
+
+    .cert-name { font-size: 15px; font-weight: 400; color: var(--text); }
+
+    .cert-badge {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 88px;
+      min-height: 56px;
+      padding: 6px 10px;
+      background: var(--faint);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+
+    .cert-badge img {
+      max-height: 52px;
+      width: auto;
+      max-width: 140px;
+      object-fit: contain;
+      display: block;
+    }
+
+    /* ─── EDUCATION ──────────────────────────────── */
+    .edu-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .edu-item:first-child { border-top: 1px solid var(--border); }
+
+    .edu-title { font-size: 14px; font-weight: 400; color: var(--text); }
+
+    .edu-meta {
+      text-align: right;
+      flex-shrink: 0;
+    }
+
+    .edu-school { font-size: 12px; color: var(--muted); }
+    .edu-date   { font-size: 11px; color: var(--border); margin-top: 2px; }
+
+    /* ─── LANGUAGES ──────────────────────────────── */
+    .lang-list { display: flex; gap: 12px; flex-wrap: wrap; }
+
+    .lang-card {
+      padding: 18px 28px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--surface);
+    }
+
+    .lang-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: 20px;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+
+    .lang-level { font-size: 12px; color: var(--muted); }
+
+    /* ─── CONTACT ────────────────────────────────── */
+    .contact-section {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 72px 48px 96px;
+    }
+
+    .contact-heading {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(32px, 5vw, 52px);
+      font-weight: 400;
+      font-style: italic;
+      color: #fff;
+      margin-bottom: 12px;
+    }
+
+    .contact-sub {
+      font-size: 15px;
+      color: var(--muted);
+      margin-bottom: 40px;
+    }
+
+    .contact-links {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .contact-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 28px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 400;
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+    }
+
+    .contact-btn svg { width: 16px; height: 16px; stroke: currentColor; }
+
+    .contact-btn.primary {
+      background: var(--violet);
+      color: #fff;
+      border: 1px solid var(--violet);
+    }
+
+    .contact-btn.primary:hover { background: #6a58e8; border-color: #6a58e8; }
+
+    .contact-btn.secondary {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .contact-btn.secondary:hover { border-color: var(--violet); color: var(--violet); }
+
+    /* ─── FOOTER ─────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border);
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 28px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    footer .f-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: 16px;
+      color: var(--muted);
+    }
+
+    footer .f-location {
+      font-size: 12px;
+      color: var(--border);
+      letter-spacing: 0.08em;
+    }
+
+    /* ─── RESPONSIVE ─────────────────────────────── */
+    @media (max-width: 600px) {
+      .hero { grid-template-columns: 1fr; padding: 64px 28px 56px; gap: 32px; }
+      .hero-photo { margin-top: 0; width: 100px; height: 100px; }
+      .section, .contact-section, footer { padding-left: 28px; padding-right: 28px; }
+      .skill-row { flex-direction: column; gap: 10px; }
+      .skill-cat { min-width: unset; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-text">
+      <div class="hero-eyebrow">Data Engineer</div>
+      <h1 class="hero-name">
+        Lucio<br>
+        <span>Hernán</span>
+        Suppo
+      </h1>
+      <p class="hero-tagline">
+        I <strong>turn data into decisions</strong> — designing and operating cloud platforms that move from raw pipeline to production-grade insight.
+      </p>
+      <div class="hero-contacts">
+        <a class="pill" href="mailto:Lucio.suppo@gmail.com">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+          Lucio.suppo@gmail.com
+        </a>
+        <a class="pill" href="https://linkedin.com/in/Luciosuppo" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          LinkedIn
+        </a>
+      </div>
+    </div>
+    <div class="hero-photo">
+      <img src="images/lucio-suppo.jpg" alt="Lucio Hernán Suppo" />
+    </div>
+  </div>
+
+  <!-- EXPERIENCE -->
+  <div class="section">
+    <div class="sec-label">Experience</div>
+
+    <div class="job">
+      <div class="job-top">
+        <div class="job-company">Teracloud</div>
+        <div class="job-period">Feb 2025 — Present</div>
+      </div>
+      <div class="job-role">Data Engineer</div>
+      <ul class="job-bullets">
+        <li>Pre-sales technical discovery and client-facing solution design for data and Generative AI projects.</li>
+        <li>Delivered end-to-end solutions from prototype to production, including architecture definition and implementation.</li>
+        <li>Supported production systems through monitoring, troubleshooting, and operational improvements.</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job-top">
+        <div class="job-company">Strata Analytics Group</div>
+        <div class="job-period">Feb 2023 — Feb 2025</div>
+      </div>
+      <div class="job-role">Data Engineer</div>
+      <ul class="job-bullets">
+        <li>Owned and supported production data pipelines, including monitoring, incident resolution, and reliability improvements.</li>
+        <li>Designed and implemented cloud-based data architectures and ETL pipelines, including data modeling.</li>
+        <li>Provisioned and managed environments using infrastructure as code (Terraform, CloudFormation, AWS CDK).</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- CERTIFICATIONS -->
+  <div class="section">
+    <div class="sec-label">Certifications</div>
+    <div class="cert-item">
+      <span class="cert-name">AWS Certified Solutions Architect</span>
+      <span class="cert-badge">
+        <img src="images/cert-aws-solutions-architect.png" alt="AWS Certified Solutions Architect badge" />
+      </span>
+    </div>
+    <div class="cert-item">
+      <span class="cert-name">AWS Certified AI Practitioner</span>
+      <span class="cert-badge">
+        <img src="images/cert-aws-ai-practitioner.png" alt="AWS Certified AI Practitioner badge" />
+      </span>
+    </div>
+    <div class="cert-item">
+      <span class="cert-name">AWS Certified Data Engineer</span>
+      <span class="cert-badge">
+        <img src="images/cert-aws-data-engineer.png" alt="AWS Certified Data Engineer badge" />
+      </span>
+    </div>
+  </div>
+
+  <!-- TOOLS -->
+  <div class="section">
+    <div class="sec-label">Tools</div>
+    <div class="skill-rows">
+      <div class="skill-row">
+        <span class="skill-cat">Languages</span>
+        <div class="skill-tags">
+          <span class="tag">Python</span>
+          <span class="tag">SQL</span>
+          <span class="tag">Spark</span>
+          <span class="tag">PySpark</span>
+        </div>
+      </div>
+      <div class="skill-row">
+        <span class="skill-cat">Data</span>
+        <div class="skill-tags">
+          <span class="tag">ETL Pipelines</span>
+          <span class="tag">Data Modeling</span>
+          <span class="tag">Orchestration</span>
+        </div>
+      </div>
+      <div class="skill-row">
+        <span class="skill-cat">Infrastructure</span>
+        <div class="skill-tags">
+          <span class="tag">Terraform</span>
+          <span class="tag">CloudFormation</span>
+          <span class="tag">AWS CDK</span>
+          <span class="tag">Docker</span>
+          <span class="tag">Git</span>
+          <span class="tag">CI/CD</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EDUCATION -->
+  <div class="section">
+    <div class="sec-label">Education</div>
+    <div class="edu-item">
+      <span class="edu-title">Agile Project Management & Scrum</span>
+      <div class="edu-meta">
+        <div class="edu-school">OpenClassrooms</div>
+        <div class="edu-date">Jan 2023</div>
+      </div>
+    </div>
+    <div class="edu-item">
+      <span class="edu-title">Data Analysis with Python</span>
+      <div class="edu-meta">
+        <div class="edu-school">FreeCodeCamp</div>
+        <div class="edu-date">Nov 2022</div>
+      </div>
+    </div>
+    <div class="edu-item">
+      <span class="edu-title">Data Bootcamp</span>
+      <div class="edu-meta">
+        <div class="edu-school">Henry</div>
+        <div class="edu-date">Sept 2022</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LANGUAGES -->
+  <div class="section">
+    <div class="sec-label">Languages</div>
+    <div class="lang-list">
+      <div class="lang-card">
+        <div class="lang-name">Spanish</div>
+        <div class="lang-level">Native</div>
+      </div>
+      <div class="lang-card">
+        <div class="lang-name">English</div>
+        <div class="lang-level">C2 Proficient · EF SET</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <div class="contact-section">
+    <h2 class="contact-heading">Let's work together.</h2>
+    <p class="contact-sub">Open to new opportunities — feel free to reach out.</p>
+    <div class="contact-links">
+      <a class="contact-btn primary" href="mailto:Lucio.suppo@gmail.com">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+        Send an email
+      </a>
+      <a class="contact-btn secondary" href="https://linkedin.com/in/Luciosuppo" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        Connect on LinkedIn
+      </a>
+    </div>
+  </div>
+
+  <footer>
+    <span class="f-name">Lucio Hernán Suppo</span>
+    <span class="f-location">Buenos Aires · Argentina</span>
+  </footer>
+
+</body>
+</html>
