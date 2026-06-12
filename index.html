@@ -306,17 +306,18 @@
     }
 
     /* ─── SKILLS ─────────────────────────────────── */
-    .skill-rows { display: flex; flex-direction: column; gap: 20px; }
+    .skill-rows {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
 
     .skill-row {
       display: flex;
-      gap: 20px;
+      flex-direction: column;
       align-items: flex-start;
-      padding-bottom: 20px;
-      border-bottom: 1px solid var(--border);
+      gap: 10px;
     }
-
-    .skill-row:last-child { border-bottom: none; padding-bottom: 0; }
 
     .skill-cat {
       font-size: 11px;
@@ -324,10 +325,6 @@
       letter-spacing: 0.14em;
       text-transform: uppercase;
       color: var(--muted);
-      min-width: 140px;
-      max-width: 180px;
-      padding-top: 5px;
-      flex-shrink: 0;
       line-height: 1.35;
     }
 
@@ -608,8 +605,6 @@
       .section--about { padding-block: 28px; }
       .section--about + .section { padding-top: 40px; }
       .section, .contact-section, footer { padding-left: 28px; padding-right: 28px; }
-      .skill-row { flex-direction: column; gap: 10px; }
-      .skill-cat { min-width: unset; }
       .edu-header { display: none; }
       .edu-item {
         grid-template-columns: 1fr auto;
